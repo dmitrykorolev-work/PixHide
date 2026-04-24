@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="PixHide.Infrastructure/PixHide.Infrastructure.csproj" Id="5f3179d4-f9d9-4eb0-89f6-875049cf0e5e" />
+  <Project Path="PixHide.Application/PixHide.Application.csproj" />
+  <Project Path="PixHide.Domain/PixHide.Domain.csproj" />
+  <Project Path="PixHide.WinUI3App/PixHide.WinUI3App.csproj" Id="23d79512-0f6a-4d6a-83c9-02dd5e3445d4">
+    <Platform Project="x64" />
+    <Deploy />
+  </Project>
+</Solution>

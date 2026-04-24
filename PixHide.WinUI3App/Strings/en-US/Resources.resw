@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="AppTitle.Text" xml:space="preserve">
+    <value>PixHide</value>
+  </data>
+	<data name="AppVersion.Text" xml:space="preserve">
+    <value>1.0.0</value>
+  </data>
+	<data name="AppSubtitle.Text" xml:space="preserve">
+    <value>LSB Image Steganography</value>
+  </data>
+
+	<data name="EncodeTab.Content" xml:space="preserve">
+    <value>Encode</value>
+  </data>
+	<data name="DecodeTab.Content" xml:space="preserve">
+    <value>Decode</value>
+  </data>
+
+	<data name="EncoderSelectImageButton.Content" xml:space="preserve">
+    <value>Select Image</value>
+  </data>
+	<data name="SelectDataFileButton.Content" xml:space="preserve">
+    <value>Select Data File</value>
+  </data>
+
+	<data name="EncoderSettingsTitle.Text" xml:space="preserve">
+    <value>LSB Encoding Settings</value>
+  </data>
+
+	<data name="BitsPerChannelSlider.Header" xml:space="preserve">
+    <value>Bits Per Channel</value>
+  </data>
+
+	<data name="EncoderDataCapacityTitle.Text" xml:space="preserve">
+    <value>Data Capacity</value>
+  </data>
+
+	<data name="EncoderUsedRun.Text" xml:space="preserve">
+    <value>Used: </value>
+  </data>
+
+	<data name="DitheringCheckBox.Content" xml:space="preserve">
+    <value>Dithering</value>
+  </data>
+	<data name="ContrastAdjustmentCheckBox.Content" xml:space="preserve">
+    <value>Contrast Adjustment</value>
+  </data>
+
+	<data name="EncodeButton.Content" xml:space="preserve">
+    <value>Encode</value>
+  </data>
+
+	<data name="DecoderSelectImageButton.Content" xml:space="preserve">
+    <value>Select Image</value>
+  </data>
+
+	<data name="DecoderDataCapacityTitle.Text" xml:space="preserve">
+    <value>Data Capacity</value>
+  </data>
+
+	<data name="DecoderUsedRun.Text" xml:space="preserve">
+    <value>Used: </value>
+  </data>
+
+	<data name="DecodeButton.Content" xml:space="preserve">
+    <value>Decode</value>
+  </data>
+
+	<data name="PreviewSaveMenuItem.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+	<data name="PreviewSaveAsMenuItem.Text" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+
+	<data name="PreviewEmptyStateText.Text" xml:space="preserve">
+    <value>Select an image or drag &amp; drop here</value>
+  </data>
+	<data name="PreviewChooseImageButton.Content" xml:space="preserve">
+    <value>Choose Image</value>
+  </data>
+
+	<data name="ImageItemOpenMenuItem.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+	<data name="ImageItemSaveAsMenuItem.Text" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+	<data name="ImageItemDeleteMenuItem.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+
+	<data name="ImageItemDeleteConfirmTitle" xml:space="preserve">
+    <value>Delete Image</value>
+  </data>
+	<data name="ImageItemDeleteConfirmContent" xml:space="preserve">
+    <value>Are you sure you want to delete this image?</value>
+  </data>
+	
+	<data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+	<data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+
+	<data name="EncodingFailed" xml:space="preserve">
+    <value>Encoding Failed</value>
+  </data>
+	<data name="EncodingFailedMessage" xml:space="preserve">
+    <value>An error occurred during encoding: </value>
+  </data>
+
+	<data name="DecodingFailed" xml:space="preserve">
+    <value>Decoding Failed</value>
+  </data>
+	<data name="DecodingFailedMessage" xml:space="preserve">
+    <value>An error occurred during decoding: </value>
+  </data>
+
+	<data name="NoHiddenDataFound" xml:space="preserve">
+    <value>No hidden data found in the image or data is corrupted.</value>
+  </data>
+	
+	<data name="OpenSettingsButtonText.Text" xml:space="preserve">
+	<value>Settings</value>
+  </data>
+
+	<data name="LanguageChangeTitle" xml:space="preserve">
+    <value>Language Changed</value>
+  </data>
+	<data name="LanguageChangeMessage" xml:space="preserve">
+	<value>Language has been changed. Please restart the application to apply the new language.</value>
+  </data>
+
+	<data name="LanguageSettingsCard.Header" xml:space="preserve">
+    <value>Language</value>
+  </data>
+	<data name="LanguageSettingsCard.Description" xml:space="preserve">
+    <value>Select your preferred language.</value>
+  </data>
+	
+	<data name="BackdropSettingsCard.Header" xml:space="preserve">
+    <value>Window backdrop</value>
+  </data>
+	<data name="BackdropSettingsCard.Description" xml:space="preserve">
+    <value>Select your preferred window backdrop.</value>
+  </data>
+	
+	<data name="ThemeSettingsCard.Header" xml:space="preserve">
+    <value>Window theme</value>
+  </data>
+	<data name="ThemeSettingsCard.Description" xml:space="preserve">
+    <value>Select your preferred window theme.</value>
+  </data>
+
+	<data name="AddImageFailed" xml:space="preserve">
+		<value>Failed to add image</value>
+	</data>
+	<data name="AddImageFailedMessage" xml:space="preserve">
+		<value>An error occurred while adding the image: </value>
+	</data>
+
+	<data name="DeleteImageFailed" xml:space="preserve">
+		<value>Failed to delete image</value>
+	</data>
+	<data name="DeleteImageFailedMessage" xml:space="preserve">
+		<value>An error occurred while deleting the image: </value>
+	</data>
+</root>

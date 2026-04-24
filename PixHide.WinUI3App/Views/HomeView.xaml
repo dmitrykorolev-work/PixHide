@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="PixHide.WinUI3App.Views.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PixHide.WinUI3App"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:layouts="using:PixHide.WinUI3App.Layouts"
+    xmlns:models="using:PixHide.WinUI3App.Models"
+    xmlns:viewmodels="using:PixHide.WinUI3App.ViewModels"
+    xmlns:views="using:PixHide.WinUI3App.Views"
+    xmlns:helpers="using:PixHide.WinUI3App.Helpers"
+    xmlns:sys="using:System"
+    mc:Ignorable="d"
+    Loaded="OnLoaded">
+    
+    <Grid x:Name="Root"
+        SizeChanged="Root_SizeChanged"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="MainGrid" Grid.Column="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ================= LEFT PANEL ================= -->
+            <Grid
+                Grid.Column="0"
+                x:Name="LeftPanelGrid"
+                BorderBrush="#1F808080"
+                BorderThickness="0,0,1,0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- HEADER -->
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            Spacing="10"
+                            Margin="12 12 12 16">
+
+                    <Image x:Name="IconImage"
+                           Width="80"
+                           Height="80"
+                           Loaded="IconImage_Loaded"/>
+
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock x:Uid="AppTitle" Text="PixHide"
+                                FontSize="32"
+                                FontWeight="Bold"/>
+
+                            <TextBlock x:Uid="AppVersion" Text="1.0.0"
+                                       FontSize="14"
+                                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+                        </StackPanel>
+
+                        <TextBlock x:Uid="AppSubtitle" Text="LSB Image Steganography"
+                                   FontSize="16"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- ================= MODE SWITCH ================= -->
+                <Border Grid.Row="1"
+                        Margin="12 0 12 12"
+                        CornerRadius="10"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        Padding="4">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ToggleButton x:Name="EncodeTab" x:Uid="EncodeTab"
+                                      Content="Encode"
+                                      IsChecked="{x:Bind ViewModel.IsEncode, Mode=OneWay}"
+                                      Command="{x:Bind ViewModel.SelectEncodeCommand}"
+                                      HorizontalAlignment="Stretch"
+                                      CornerRadius="5,0,0,5"
+                                      BorderThickness="0"/>
+
+                        <ToggleButton x:Name="DecodeTab" x:Uid="DecodeTab"
+                                      Content="Decode"
+                                      Grid.Column="1"
+                                      IsChecked="{x:Bind ViewModel.IsDecode, Mode=OneWay}"
+                                      Command="{x:Bind ViewModel.SelectDecodeCommand}"
+                                      HorizontalAlignment="Stretch"
+                                      CornerRadius="0,5,5,0"
+                                      BorderThickness="0"/>
+
+                    </Grid>
+                </Border>
+
+                <!-- ================= ENCODE PANEL ================= -->
+                <ScrollViewer x:Name="EncoderTabScroll"
+                              Grid.Row="2"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Loaded="EncoderTabScroll_Loaded"
+                              SizeChanged="EncoderTabScroll_SizeChanged"
+                              Visibility="{x:Bind ViewModel.IsEncode, Mode=OneWay}">
+
+                    <StackPanel x:Name="EncoderTabPanel"
+                                Spacing="8"
+                                Margin="12 0 12 12">
+
+                        <Button x:Uid="EncoderSelectImageButton" Content="Select Image"
+                                HorizontalAlignment="Stretch"
+                                Command="{x:Bind ViewModel.PickImageFileCommand}"/>
+                        
+                        <Button x:Uid="SelectDataFileButton" Content="Select Data File"
+                                HorizontalAlignment="Stretch"
+                                Command="{x:Bind ViewModel.PickDataFileCommand}"/>
+
+                        <TextBlock Text="{x:Bind ViewModel.EncoderInputFileName, Mode=OneWay}"
+                                   FontSize="12"
+                                   HorizontalAlignment="Center"
+                                   HorizontalTextAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}"/>
+
+                        <TextBlock x:Uid="EncoderSettingsTitle" Text="LSB Encoding Settings"
+                                   FontSize="16"
+                                   Margin="0 20 0 0"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+
+                        <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                BorderThickness="0,0,0,1"
+                                Margin="0 0 0 8"/>
+
+                        <Slider x:Name="BitsCountSlider" x:Uid="BitsPerChannelSlider"
+                                Header="Bits Per Channel"
+                                Minimum="1"
+                                Maximum="7"
+                                TickFrequency="1"
+                                SnapsTo="Ticks"
+                                Value="{x:Bind ViewModel.EncoderBitsPerChannel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBlock x:Uid="EncoderDataCapacityTitle" Text="Data Capacity"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Margin="0 8 0 0"/>
+
+                        <TextBlock>
+                            <Run x:Uid="EncoderUsedRun" Text="Used: "/>
+                            <Run Text="{x:Bind helpers:FileSizeFormatter.FormatFileSize( ViewModel.EncoderUsedCapacity ), Mode=OneWay}"/>
+                            <Run Text=" / "/>
+                            <Run Text="{x:Bind helpers:FileSizeFormatter.FormatFileSize( ViewModel.EncoderMaxCapacity ), Mode=OneWay}"/>
+                        </TextBlock>
+
+                        <!-- Animation glitch in WinUI ProgressBar when reducing value: https://github.com/microsoft/microsoft-ui-xaml/issues/10257 -->
+                        <ProgressBar Minimum="0"
+                                     Maximum="100"
+                                     Value="{x:Bind ViewModel.EncoderCapacityPercent, Mode=OneWay}"
+                                     ShowError="{x:Bind ViewModel.EncoderCapacityOverflow, Mode=OneWay}"
+                                     Height="12"/>
+
+                        <TextBlock Text="{x:Bind sys:String.Format('{0:F2}%', ViewModel.EncoderCapacityPercent), Mode=OneWay}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="12"/>
+
+                        <CheckBox x:Uid="DitheringCheckBox" Content="Dithering" IsChecked="{x:Bind ViewModel.EncoderDither, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <CheckBox x:Uid="ContrastAdjustmentCheckBox" Content="Contrast Adjustment" IsChecked="{x:Bind ViewModel.EncoderContrastCorrection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                            BorderThickness="0,0,0,1"
+                            Margin="0 8 0 8"/>
+
+                        <Button x:Uid="EncodeButton" Content="Encode"
+                            HorizontalAlignment="Stretch"
+                            Translation="0,0,32"
+                            Style="{ThemeResource AccentButtonStyle}"
+                            Command="{x:Bind ViewModel.EncodeCommand}">
+
+                            <Button.Shadow>
+                                <ThemeShadow/>
+                            </Button.Shadow>
+                        </Button>
+
+                        <ProgressBar
+                            IsIndeterminate="True"
+                            ShowError="{x:Bind ViewModel.EncoderError, Mode=OneWay}"
+                            ShowPaused="{x:Bind ViewModel.EncoderPaused, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.EncoderWorking, Mode=OneWay}" />
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- ================= DECODE PANEL ================= -->
+                <ScrollViewer x:Name="DecoderTabScroll"
+                    Grid.Row="2"
+                    VerticalScrollBarVisibility="Auto"
+                    HorizontalScrollBarVisibility="Disabled"
+                    Loaded="DecoderTabScroll_Loaded"
+                    SizeChanged="DecoderTabScroll_SizeChanged"
+                    Visibility="{x:Bind ViewModel.IsDecode, Mode=OneWay}">
+
+                    <StackPanel x:Name="DecoderTabPanel"
+                                Spacing="8"
+                                Margin="12 0 12 12">
+
+                        <Button x:Uid="DecoderSelectImageButton" Content="Select Image"
+                                HorizontalAlignment="Stretch"
+                                Command="{x:Bind ViewModel.PickImageFileCommand}"/>
+
+                        <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                BorderThickness="0,0,0,1"
+                                Margin="0 8 0 8"/>
+
+                        <TextBlock x:Uid="DecoderDataCapacityTitle" Text="Data Capacity"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"/>
+
+                        <TextBlock>
+                            <Run x:Uid="DecoderUsedRun" Text="Used: "/>
+                            <Run Text="{x:Bind helpers:FileSizeFormatter.FormatFileSize( ViewModel.DecoderUsedCapacity ), Mode=OneWay}"/>
+                            <Run Text=" / "/>
+                            <Run Text="{x:Bind helpers:FileSizeFormatter.FormatFileSize( ViewModel.DecoderMaxCapacity ), Mode=OneWay}"/>
+                        </TextBlock>
+
+                        <!-- Animation glitch in WinUI ProgressBar when reducing value: https://github.com/microsoft/microsoft-ui-xaml/issues/10257 -->
+                        <ProgressBar Minimum="0"
+                                     Maximum="100"
+                                     Value="{x:Bind ViewModel.DecoderCapacityPercent, Mode=OneWay}" />
+
+                        <TextBlock Text="{x:Bind sys:String.Format('{0:F2}%', ViewModel.DecoderCapacityPercent), Mode=OneWay}"
+                                   HorizontalAlignment="Right"
+                                   FontSize="12"/>
+
+                        <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                            BorderThickness="0,0,0,1"
+                            Margin="0 8 0 8"/>
+
+                        <Button x:Uid="DecodeButton" Content="Decode"
+                            HorizontalAlignment="Stretch"
+                            Translation="0,0,32"
+                            Style="{ThemeResource AccentButtonStyle}"
+                            Command="{x:Bind ViewModel.DecodeCommand}">
+
+                            <Button.Shadow>
+                                <ThemeShadow/>
+                            </Button.Shadow>
+                        </Button>
+
+                        <ProgressBar
+                            IsIndeterminate="True"
+                            ShowError="{x:Bind ViewModel.DecoderError, Mode=OneWay}"
+                            ShowPaused="{x:Bind ViewModel.DecoderPaused, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.DecoderWorking, Mode=OneWay}" />
+                    </StackPanel>
+
+                </ScrollViewer>
+
+                <StackPanel HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            Spacing="0"
+                            Grid.Row="3">
+
+                    <Border BorderBrush="#1F808080"
+                        BorderThickness="0,0,0,1"
+                        Margin="0 0 0 0"/>
+
+                    <Button 
+                        x:Uid="OpenSettingsButton"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Margin="0 0 0 0"
+                        Padding="10 12 10 12"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        CornerRadius="0"
+                        Command="{x:Bind ViewModel.OpenSettingsCommand}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Setting" Margin="0,0,10,0"/>
+
+                            <TextBlock x:Uid="OpenSettingsButtonText" Text="Settings" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+            <!-- ================= CENTER AND RIGHT PANEL ================= -->
+            <Grid Grid.Column="1" x:Name="RightPanelGrid">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- PREVIEW -->
+                <Grid Grid.Column="0"
+                      Background="Transparent"
+                      AllowDrop="True"
+                      DragOver="PreviewArea_DragOver"
+                      Drop="PreviewArea_Drop">
+
+                    <Grid>
+
+                        <!-- IMAGE PREVIEW -->
+                        <Image x:Name="PreviewImage"
+                                Stretch="Uniform"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Source="{x:Bind ViewModel.PreviewImage, Mode=OneWay}">
+
+                            <Image.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem x:Uid="PreviewSaveMenuItem"
+                                                    Text="Save"
+                                                    Icon="ClosePane"
+                                                    Command="{Binding WorkingImageSaveToListCommand}">
+                                    </MenuFlyoutItem>
+
+                                    <MenuFlyoutItem x:Uid="PreviewSaveAsMenuItem"
+                                                    Text="Save As"
+                                                    Command="{Binding WorkingImageSaveAsCommand}">
+
+                                        <MenuFlyoutItem.Icon>
+                                            <FontIcon Glyph="&#xE792;" />
+                                        </MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Image.ContextFlyout>
+                        </Image>
+
+                        <!-- EMPTY STATE -->
+                        <Border Background="Transparent"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="24"
+                            CornerRadius="12"
+                            Visibility="{x:Bind ViewModel.PreviewImageIsNull, Mode=OneWay}">
+
+                            <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Spacing="10">
+
+                                <FontIcon Glyph="&#xE8B7;"
+                                    FontSize="48"
+                                    HorizontalAlignment="Center"/>
+
+                                <TextBlock x:Uid="PreviewEmptyStateText"
+                                    Text="Select an image or drag &amp; drop here"
+                                    HorizontalAlignment="Center"/>
+
+                                <Button Content="Choose Image" x:Uid="PreviewChooseImageButton"
+                                    Command="{x:Bind ViewModel.PickImageFileCommand}"
+                                    HorizontalAlignment="Center"
+                                    Translation="0,0,32"
+                                    Style="{ThemeResource AccentButtonStyle}">
+
+                                    <Button.Shadow>
+                                        <ThemeShadow/>
+                                    </Button.Shadow>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+
+                    </Grid>
+                </Grid>
+
+                <!-- ================= RIGHT SIDE PANEL ================= -->
+                <Grid Grid.Column="1"
+                      HorizontalAlignment="Left">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- RESIZE HANDLE -->
+                    <Border Grid.Column="0" Background="#22000000">
+
+                        <controls:ContentSizer x:Name="RightPanelSizer"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            IsThumbVisible="True"
+                            Cursor="SizeWestEast"
+                            IsDragInverted="True"
+                            TargetControl="{Binding ElementName=SideContent}" />
+
+                    </Border>
+
+                    <!-- SIDE CONTENT -->
+                    <Grid x:Name="SideContent"
+                          Grid.Column="1"
+                          Width="300"
+                          MaxWidth="745"
+                          Margin="0 32 0 0"
+                          SizeChanged="SideContent_SizeChanged">
+
+                        <controls:OpacityMaskView>
+
+                            <controls:OpacityMaskView.OpacityMask>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="8"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Rectangle Grid.Row="0">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Offset="0.5" Color="Transparent"/>
+                                                <GradientStop Offset="1" Color="White"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+
+                                    <Rectangle Grid.Row="1" Fill="White"/>
+                                </Grid>
+                            </controls:OpacityMaskView.OpacityMask>
+
+                            <ScrollViewer>
+                                <ItemsRepeater x:Name="VariedImageSizeRepeater"
+                                               ItemsSource="{x:Bind ViewModel.RightImages, Mode=OneWay}"
+                                               ElementPrepared="VariedImageSizeRepeater_ElementPrepared"
+                                               ElementClearing="VariedImageSizeRepeater_ElementClearing">
+
+                                    <ItemsRepeater.Layout>
+                                        <layouts:VariedImageSizeLayout Width="{x:Bind viewmodels:ImageItemViewModel.VariedImageSizeLayoutWidth, Mode=OneWay}"/>
+                                    </ItemsRepeater.Layout>
+
+                                    <ItemsRepeater.ItemTemplate>
+                                        <DataTemplate x:DataType="viewmodels:ImageItemViewModel">
+                                            <Grid x:Name="ImageItem">
+                                                <StackPanel Margin="5 0 5 10" Spacing="4">
+                                                    <Button
+                                                        Padding="0 0 0 0"
+                                                        BorderThickness="0"
+                                                        Background="Transparent"
+                                                        Command="{Binding ImageItemOpenCommand}"
+                                                        CommandParameter="{x:Bind Model}" >
+                                                        
+                                                        <Button.Content>
+                                                            <Image x:Name="Thumbnail"
+                                                                    Stretch="Uniform"
+                                                                    Width="{x:Bind viewmodels:ImageItemViewModel.ThumbnailWidth, Mode=OneWay}"
+                                                                    Height="{x:Bind ThumbnailHeight, Mode=OneWay}"
+                                                                    Source="{x:Bind ImageSource, Mode=OneWay}"/>
+                                                        </Button.Content>
+
+                                                        <Button.ContextFlyout>
+                                                            <MenuFlyout>
+                                                                <MenuFlyoutItem x:Uid="ImageItemOpenMenuItem"
+                                                                    Text="Open"
+                                                                    Icon="OpenFile"
+                                                                    Command="{Binding ImageItemOpenCommand}"
+                                                                    CommandParameter="{x:Bind Model}" />
+
+                                                                <MenuFlyoutItem x:Uid="ImageItemSaveAsMenuItem"
+                                                                    Text="Save As"
+                                                                    Command="{Binding ImageItemSaveAsCommand}"
+                                                                    CommandParameter="{x:Bind Model}" >
+                                                                    
+                                                                    <MenuFlyoutItem.Icon>
+                                                                        <FontIcon Glyph="&#xE792;" />
+                                                                    </MenuFlyoutItem.Icon>
+                                                                </MenuFlyoutItem>
+                                                                
+                                                                <MenuFlyoutSeparator/>
+
+                                                                <MenuFlyoutItem x:Uid="ImageItemDeleteMenuItem"
+                                                                    Text="Delete"
+                                                                    Icon="Delete"
+                                                                    Command="{Binding ImageItemDeleteCommand}"
+                                                                    CommandParameter="{x:Bind Model}"/>
+                                                            </MenuFlyout>
+                                                        </Button.ContextFlyout>
+                                                    </Button>
+                                                    
+                                                    <TextBox Text="{x:Bind Name, Mode=TwoWay}"
+                                                        FontSize="12"
+                                                        HorizontalAlignment="Stretch"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap"
+                                                        Background="Transparent"
+                                                        BorderThickness="0"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsRepeater.ItemTemplate>
+                                </ItemsRepeater>
+                            </ScrollViewer>
+
+                        </controls:OpacityMaskView>
+
+                    </Grid>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<data name="AppTitle.Text" xml:space="preserve">
+    <value>PixHide</value>
+  </data>
+	<data name="AppVersion.Text" xml:space="preserve">
+    <value>1.0.0</value>
+  </data>
+	<data name="AppSubtitle.Text" xml:space="preserve">
+    <value>LSB Image Steganography</value>
+  </data>
+
+	<data name="EncodeTab.Content" xml:space="preserve">
+    <value>Кодування</value>
+  </data>
+	<data name="DecodeTab.Content" xml:space="preserve">
+    <value>Декодування</value>
+  </data>
+
+	<data name="EncoderSelectImageButton.Content" xml:space="preserve">
+    <value>Обрати зображення</value>
+  </data>
+	<data name="SelectDataFileButton.Content" xml:space="preserve">
+    <value>Обрати файл даних</value>
+  </data>
+
+	<data name="EncoderSettingsTitle.Text" xml:space="preserve">
+    <value>Налаштування LSB-кодування</value>
+  </data>
+
+	<data name="BitsPerChannelSlider.Header" xml:space="preserve">
+    <value>Бітів на канал</value>
+  </data>
+
+	<data name="EncoderDataCapacityTitle.Text" xml:space="preserve">
+    <value>Місткість даних</value>
+  </data>
+
+	<data name="EncoderUsedRun.Text" xml:space="preserve">
+    <value>Використано: </value>
+  </data>
+
+	<data name="DitheringCheckBox.Content" xml:space="preserve">
+    <value>Дизеринг</value>
+  </data>
+	<data name="ContrastAdjustmentCheckBox.Content" xml:space="preserve">
+    <value>Корекція контрасту</value>
+  </data>
+
+	<data name="EncodeButton.Content" xml:space="preserve">
+    <value>Кодувати</value>
+  </data>
+
+	<data name="DecoderSelectImageButton.Content" xml:space="preserve">
+    <value>Обрати зображення</value>
+  </data>
+
+	<data name="DecoderDataCapacityTitle.Text" xml:space="preserve">
+    <value>Місткість даних</value>
+  </data>
+
+	<data name="DecoderUsedRun.Text" xml:space="preserve">
+    <value>Використано: </value>
+  </data>
+
+	<data name="DecodeButton.Content" xml:space="preserve">
+    <value>Декодувати</value>
+  </data>
+
+	<data name="PreviewSaveMenuItem.Text" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+	<data name="PreviewSaveAsMenuItem.Text" xml:space="preserve">
+    <value>Зберегти як</value>
+  </data>
+
+	<data name="PreviewEmptyStateText.Text" xml:space="preserve">
+    <value>Оберіть зображення або перетягніть його сюди</value>
+  </data>
+	<data name="PreviewChooseImageButton.Content" xml:space="preserve">
+    <value>Обрати зображення</value>
+  </data>
+
+	<data name="ImageItemOpenMenuItem.Text" xml:space="preserve">
+    <value>Відкрити</value>
+  </data>
+	<data name="ImageItemSaveAsMenuItem.Text" xml:space="preserve">
+    <value>Зберегти як</value>
+  </data>
+	<data name="ImageItemDeleteMenuItem.Text" xml:space="preserve">
+    <value>Видалити</value>
+  </data>
+
+	<data name="ImageItemDeleteConfirmTitle" xml:space="preserve">
+    <value>Видалення зображення</value>
+  </data>
+	<data name="ImageItemDeleteConfirmContent" xml:space="preserve">
+    <value>Ви впевнені, що хочете видалити це зображення?</value>
+  </data>
+
+	<data name="Yes" xml:space="preserve">
+    <value>Так</value>
+  </data>
+	<data name="No" xml:space="preserve">
+    <value>Ні</value>
+  </data>
+
+	<data name="EncodingFailed" xml:space="preserve">
+    <value>Кодування не вдалося</value>
+  </data>
+	<data name="EncodingFailedMessage" xml:space="preserve">
+    <value>Під час кодування сталася помилка: </value>
+  </data>
+
+	<data name="DecodingFailed" xml:space="preserve">
+    <value>Декодування не вдалося</value>
+  </data>
+	<data name="DecodingFailedMessage" xml:space="preserve">
+    <value>Під час декодування сталася помилка: </value>
+  </data>
+
+	<data name="NoHiddenDataFound" xml:space="preserve">
+    <value>У зображенні не знайдено прихованих даних або дані пошкоджені.</value>
+  </data>
+
+	<data name="OpenSettingsButtonText.Text" xml:space="preserve">
+	<value>Налаштування</value>
+  </data>
+
+	<data name="LanguageChangeTitle" xml:space="preserve">
+    <value>Мова змінена</value>
+  </data>
+	<data name="LanguageChangeMessage" xml:space="preserve">
+	<value>Мову змінено. Будь ласка, перезапустіть додаток, щоб застосувати зміни.</value>
+  </data>
+
+	<data name="LanguageSettingsCard.Header" xml:space="preserve">
+    <value>Мова</value>
+  </data>
+	<data name="LanguageSettingsCard.Description" xml:space="preserve">
+    <value>Виберіть бажану мову.</value>
+  </data>
+
+	<data name="BackdropSettingsCard.Header" xml:space="preserve">
+    <value>Фон вікна</value>
+  </data>
+	<data name="BackdropSettingsCard.Description" xml:space="preserve">
+    <value>Виберіть бажаний фон вікна.</value>
+  </data>
+
+	<data name="ThemeSettingsCard.Header" xml:space="preserve">
+    <value>Тема вікна</value>
+  </data>
+	<data name="ThemeSettingsCard.Description" xml:space="preserve">
+    <value>Виберіть бажану тему вікна.</value>
+  </data>
+
+	<data name="AddImageFailed" xml:space="preserve">
+		<value>Не вдалося додати зображення</value>
+	</data>
+	<data name="AddImageFailedMessage" xml:space="preserve">
+		<value>Під час додавання зображення сталася помилка: </value>
+	</data>
+
+	<data name="DeleteImageFailed" xml:space="preserve">
+		<value>Не вдалося видалити зображення</value>
+	</data>
+	<data name="DeleteImageFailedMessage" xml:space="preserve">
+		<value>Під час видалення зображення сталася помилка: </value>
+	</data>
+</root>

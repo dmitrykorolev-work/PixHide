@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="PixHide.WinUI3App.Views.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PixHide.WinUI3App.Views"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Width="Auto"
+    Height="Auto"
+    Loaded="OnLoaded">
+
+    <Grid x:Name="Root">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                Padding="16,0"
+                Background="Transparent"
+                BorderThickness="0"
+                CornerRadius="0 0 5 0"
+                Command="{x:Bind ViewModel.GoBackCommand}">
+            <Viewbox MaxHeight="15" MaxWidth="15">
+                <SymbolIcon Symbol="Back"/>
+            </Viewbox>
+        </Button>
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            
+            <StackPanel Spacing="4" 
+                        Margin="10 10 10 10"
+                        HorizontalAlignment="Stretch">
+                
+                <controls:SettingsCard x:Uid="LanguageSettingsCard"
+                                       Header="Language"
+                                       Description="Select your preferred language.">
+                    <ComboBox ItemsSource="{x:Bind ViewModel.Languages}"
+                              SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"/>
+                </controls:SettingsCard>
+
+                <controls:SettingsCard x:Uid="BackdropSettingsCard"
+                                       Header="Window backdrop"
+                                       Description="Select your preferred window backdrop.">
+                    <ComboBox ItemsSource="{x:Bind ViewModel.BackdropTypes}"
+                              SelectedItem="{x:Bind ViewModel.SelectedBackdrop, Mode=TwoWay}"/>
+                </controls:SettingsCard>
+                
+                <controls:SettingsCard x:Uid="ThemeSettingsCard"
+                                       Header="Window theme"
+                                       Description="Select your preferred window theme.">
+                    <ComboBox ItemsSource="{x:Bind ViewModel.Themes}"
+                              SelectedItem="{x:Bind ViewModel.SelectedTheme, Mode=TwoWay}"/>
+                </controls:SettingsCard>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

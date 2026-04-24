@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "PixHide.WinUI3App (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "PixHide.WinUI3App (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
