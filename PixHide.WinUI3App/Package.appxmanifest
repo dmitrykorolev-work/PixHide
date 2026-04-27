@@ -11,7 +11,7 @@
   <Identity
     Name="bfa3a466-a448-4f0f-a45c-260995121ea4"
     Publisher="CN=dmitr"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="bfa3a466-a448-4f0f-a45c-260995121ea4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

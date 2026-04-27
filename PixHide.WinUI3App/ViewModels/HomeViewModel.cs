@@ -144,6 +144,9 @@ public sealed partial class HomeViewModel(
         try
         {
             PreviewImage = new BitmapImage(uri);
+            // Sometimes Image element with BitmapImage source just fails to load without throwing an exception
+            // See https://github.com/microsoft/microsoft-ui-xaml/issues/9342
+
             return true;
         }
         catch
@@ -158,6 +161,9 @@ public sealed partial class HomeViewModel(
         {
             var bitmap = await ImageConvert.MatToBitmapImageAsync(mat);
             PreviewImage = bitmap;
+            // Sometimes Image element with BitmapImage source just fails to load without throwing an exception
+            // See https://github.com/microsoft/microsoft-ui-xaml/issues/9342
+
             return true;
         }
         catch (Exception)

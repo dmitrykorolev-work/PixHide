@@ -87,32 +87,50 @@ public partial class ImageItemViewModel : ObservableObject
 
             ImageSource = bitmapImage;
 
+            bitmapImage.DecodePixelWidth = (int)VariedImageSizeLayoutWidth * 2; // Load a higher resolution image to ensure good quality when displayed at high DPI
+
+            // Keep references to streams until the image is fully opened or failed
+            var randomAccessStream = stream.AsRandomAccessStream();
+
             bitmapImage.ImageOpened += (s, e) =>
             {
-                var bmp = (BitmapImage)s;
-                double width = bmp.PixelWidth;
-                double height = bmp.PixelHeight;
+                try
+                {
+                    var bmp = (BitmapImage)s;
+                    double width = bmp.PixelWidth;
+                    double height = bmp.PixelHeight;
 
-                AspectRatio = height / width;
-                ThumbnailHeight = ThumbnailWidth * AspectRatio;
+                    AspectRatio = height / width;
+                    ThumbnailHeight = ThumbnailWidth * AspectRatio;
 
-                Debug.WriteLine($"Loaded image: {Name} ({Id})");
+                    Debug.WriteLine($"Loaded image: {Name} ({Id})");
+                }
+                finally
+                {
+                    // Dispose streams when image finished opening
+                    try { randomAccessStream?.Dispose(); } catch { }
+                    try { stream?.Dispose(); } catch { }
+                }
             };
 
             bitmapImage.ImageFailed += (s, e) =>
             {
-                Debug.WriteLine($"Failed to load image: {Name} ({Id}), Error: {e.ErrorMessage}");
+                try
+                {
+                    Debug.WriteLine($"Failed to load image: {Name} ({Id}), Error: {e.ErrorMessage}");
+                }
+                finally
+                {
+                    // Ensure streams are disposed on failure
+                    try { randomAccessStream?.Dispose(); } catch { }
+                    try { stream?.Dispose(); } catch { }
+                }
             };
-
-            var randomAccessStream = stream.AsRandomAccessStream();
 
             await bitmapImage.SetSourceAsync(randomAccessStream);
 
-            stream?.Dispose(); // For some reason, sometimes file doesn't close
-
-            randomAccessStream?.Dispose();
-
             stream = null;
+            randomAccessStream = null;
 
             return true;
         }

@@ -4,6 +4,8 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.IO;
 
+using System.Diagnostics;
+
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -18,6 +20,7 @@ public static class ImageConvert
         byte[] bytes = mat.ToBytes( ext );
 
         var image = new BitmapImage();
+
         using var ms = new MemoryStream( bytes );
         await image.SetSourceAsync( ms.AsRandomAccessStream() );
         return image;

@@ -39,8 +39,9 @@ public class FileSystemImageStorage : IImageStorage
         if ( !File.Exists(path) )
             throw new FileNotFoundException($"Image not found: {filename}");
 
-        FileStream stream = File.OpenRead(path);
-        return stream;
+            // Open the file with delete sharing so callers can delete the file even if a handle is still open
+            var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read | FileShare.Delete);
+            return stream;
     }
 
     public bool Delete(string filename)
